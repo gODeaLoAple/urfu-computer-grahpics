@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsCourse", "GraphicsCourse\GraphicsCourse.csproj", "{4BD5A486-8E9C-4F28-82AE-3BA40506424C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsCourse.Core", "GraphicsCourse.Core\GraphicsCourse.Core.csproj", "{72B275D0-0131-4CCD-B235-4B0D678F469C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1", "Task1\Task1.csproj", "{A4400DBE-456A-43D7-B68F-263278BCF92A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +10,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4BD5A486-8E9C-4F28-82AE-3BA40506424C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BD5A486-8E9C-4F28-82AE-3BA40506424C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BD5A486-8E9C-4F28-82AE-3BA40506424C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BD5A486-8E9C-4F28-82AE-3BA40506424C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B275D0-0131-4CCD-B235-4B0D678F469C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B275D0-0131-4CCD-B235-4B0D678F469C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B275D0-0131-4CCD-B235-4B0D678F469C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B275D0-0131-4CCD-B235-4B0D678F469C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4400DBE-456A-43D7-B68F-263278BCF92A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4400DBE-456A-43D7-B68F-263278BCF92A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4400DBE-456A-43D7-B68F-263278BCF92A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4400DBE-456A-43D7-B68F-263278BCF92A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
