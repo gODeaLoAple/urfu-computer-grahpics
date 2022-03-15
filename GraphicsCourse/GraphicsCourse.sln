@@ -2,7 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsCourse.Core", "GraphicsCourse.Core\GraphicsCourse.Core.csproj", "{72B275D0-0131-4CCD-B235-4B0D678F469C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1", "Task1\Task1.csproj", "{A4400DBE-456A-43D7-B68F-263278BCF92A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsCourse.Task1", "GraphicsCourse.Task1\GraphicsCourse.Task1.csproj", "{A4400DBE-456A-43D7-B68F-263278BCF92A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsCourse.Task2", "GraphicsCourse.Task2\GraphicsCourse.Task2.csproj", "{9180A692-3880-4B54-9C84-C6E6886C0832}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{A4400DBE-456A-43D7-B68F-263278BCF92A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4400DBE-456A-43D7-B68F-263278BCF92A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4400DBE-456A-43D7-B68F-263278BCF92A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9180A692-3880-4B54-9C84-C6E6886C0832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9180A692-3880-4B54-9C84-C6E6886C0832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9180A692-3880-4B54-9C84-C6E6886C0832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9180A692-3880-4B54-9C84-C6E6886C0832}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

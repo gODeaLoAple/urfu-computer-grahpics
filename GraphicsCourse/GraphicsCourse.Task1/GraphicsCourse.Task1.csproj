@@ -3,6 +3,12 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>GraphicsCourse.Task1</AssemblyName>
+        <RootNamespace>GraphicsCourse.Task1</RootNamespace>
+        <PackageId>GraphicsCourse.Task1</PackageId>
+        <Authors>GraphicsCourse.Task1</Authors>
+        <Company>GraphicsCourse.Task1</Company>
+        <Product>GraphicsCourse.Task1</Product>
     </PropertyGroup>
 
     <ItemGroup>

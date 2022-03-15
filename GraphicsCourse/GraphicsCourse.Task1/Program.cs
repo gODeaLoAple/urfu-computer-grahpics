@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Linq;
 using GraphicsCourse.Core;
 
-namespace Task1
+namespace GraphicsCourse.Task1
 {
     class Program
     {
