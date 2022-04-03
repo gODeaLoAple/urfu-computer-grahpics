@@ -1,5 +1,12 @@
-﻿namespace GraphicsCourse.Core
+﻿using System.Drawing;
+
+namespace GraphicsCourse.Core
 {
+    public interface IParametricFunction
+    {
+        Point GetPoint(int t);
+    }
+    
     public readonly struct Segment<T>
     {
         public void Deconstruct(out T left, out T right)
