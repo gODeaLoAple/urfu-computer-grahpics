@@ -44,33 +44,48 @@ public class Tests
         Draw(a,b,c,d);
     }
     
-    [TestCase(1, 0, 1, 0)]
-    [TestCase(1, 100, 1, 0)]
-    [TestCase(1, 200, 1, 0)]
-    [TestCase(1, 300, 1, 0)]
-    [TestCase(1, 400, 1, 0)]
-    [TestCase(1, 500, 1, 0)]
-    [TestCase(1, 600, 1, 0)]
-    [TestCase(1, 700, 1, 0)]
-    [TestCase(1, 800, 1, 0)]
+    [TestCase(1, 0, 1, 400)]
+    [TestCase(1, 100, 1, 400)]
+    [TestCase(1, 200, 1, 400)]
+    [TestCase(1, 300, 1, 400)]
+    [TestCase(1, 400, 1, 400)]
+    [TestCase(1, 500, 1, 400)]
+    [TestCase(1, 600, 1, 400)]
+    [TestCase(1, 700, 1, 400)]
+    [TestCase(1, 800, 1, 400)]
     public void MoveHorizontal(float a, float b, float c, float d)
     {
         Draw(a,b,c,d);
     }
     
-    [TestCase(1, -800, 1, 0)]
-    [TestCase(1, -700, 1, 0)]
-    [TestCase(1, -600, 1, 0)]
-    [TestCase(1, -500, 1, 0)]
-    [TestCase(1, -400, 1, 0)]
-    [TestCase(1, -300, 1, 0)]
-    [TestCase(1, -200, 1, 0)]
-    [TestCase(1, -100, 1, 0)]
-    [TestCase(1, 0, 1, 0)]
+    [TestCase(1, -800, 1, 400)]
+    [TestCase(1, -700, 1, 400)]
+    [TestCase(1, -600, 1, 400)]
+    [TestCase(1, -500, 1, 400)]
+    [TestCase(1, -400, 1, 400)]
+    [TestCase(1, -300, 1, 400)]
+    [TestCase(1, -200, 1, 400)]
+    [TestCase(1, -100, 1, 400)]
+    [TestCase(1, 0, 1, 400)]
     public void MoveHorizontalNegative(float a, float b, float c, float d)
     {
         Draw(a,b,c,d);
     }
+    
+    [TestCase(-0.01f, 799, 1, 400)]
+    [TestCase(-0.01f, 700, 1, 400)]
+    [TestCase(-0.01f, 600, 1, 400)]
+    [TestCase(-0.01f, 500, 1, 400)]
+    [TestCase(-0.01f, 400, 1, 400)]
+    [TestCase(-0.01f, 300, 1, 400)]
+    [TestCase(-0.01f, 200, 1, 400)]
+    [TestCase(-0.01f, 100, 1, 400)]
+    [TestCase(-0.01f, 0, 1, 400)]
+    public void MoveHorizontalNegativeA(float a, float b, float c, float d)
+    {
+        Draw(a,b,c,d);
+    }
+
     
     [TestCase(1, 0, 1, 0)]
     [TestCase(1, 100, 1, 100)]
