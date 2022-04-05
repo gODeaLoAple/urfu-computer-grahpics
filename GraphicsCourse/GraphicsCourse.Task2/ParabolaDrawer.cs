@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using System.Runtime.CompilerServices;
 
 namespace GraphicsCourse.Task2
 {
@@ -98,23 +97,8 @@ namespace GraphicsCourse.Task2
         {
             if (_borders.Contains(x, y))
             {
-                bitmap.SetPixel(x, y, Color.Black);
+                bitmap.SetPixelsAround(x, y, Color.Black);
             }
-        }
-    }
-
-
-    public readonly struct ParabolaDrawerState
-    {
-        public readonly int X;
-        public readonly int Y;
-        public readonly float Delta;
-
-        public ParabolaDrawerState(int x, int y, float delta)
-        {
-            X = x;
-            Y = y;
-            Delta = delta;
         }
     }
 }
