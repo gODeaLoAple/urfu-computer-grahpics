@@ -5,25 +5,24 @@ namespace GraphicsCourse.Task3;
 
 public readonly struct Segment
 {
-    public readonly Vector2 A;
-    public readonly Vector2 B;
+    public readonly VectorRat A;
+    public readonly VectorRat B;
 
-    public Segment(Vector2 a, Vector2 b)
+    public Segment(VectorRat a, VectorRat b)
     {
         A = a;
         B = b;
     }
     
-    public Segment(Point a, Point b) : this(new Vector2(a.X, a.Y), new Vector2(b.X, b.Y))
+    public Segment(Point a, Point b) : this(new VectorRat(a.X, a.Y), new VectorRat(b.X, b.Y))
     {
     }
 
-    public bool Contains(Vector2 point)
+    public bool Contains(VectorRat point)
     {
-        var d1 = new Vector2(B.X - A.X, B.Y - A.Y);
-        var d2 = new Vector2(point.X - A.X, point.Y - A.Y);
-        var abs = Math.Abs(VectorHelper.Cross(d1, d2));
-        return abs <= 1e-2
-            && Vector2.Dot(new Vector2(-d2.X, -d2.Y), new Vector2(B.X - point.X, B.Y - point.Y)) <= 0;
+        var d1 = new VectorRat(B.X - A.X, B.Y - A.Y);
+        var d2 = new VectorRat(point.X - A.X, point.Y - A.Y);
+        return VectorHelper.Cross(d1, d2) == 0
+            && VectorRat.Dot(new VectorRat(-d2.X, -d2.Y), new VectorRat(B.X - point.X, B.Y - point.Y)) <= 0;
     }
 }

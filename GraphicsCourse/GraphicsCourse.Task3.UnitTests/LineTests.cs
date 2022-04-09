@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -5,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using FluentAssertions;
 using NUnit.Framework;
+using Rationals;
 
 namespace GraphicsCourse.Task3.UnitTests;
 
@@ -26,20 +28,45 @@ public class ImagesTests
     }
 
     [Test]
-    public void First()
+    public void Triangle1()
     {
-        Draw(_bmp, "First.bmp", new[]
+        Draw(_bmp, "Triangle1.bmp", new[]
         {
             new Point(0, 0),
             new Point(500, 0),
             new Point(0, 500)
-        });
+        }.Select(Shift(new Size(100, 100))));
     }
     
     [Test]
-    public void Second()
+    public void Triangle2()
     {
-        Draw(_bmp, "Second.bmp", new[]
+        const int a = 500;
+        Draw(_bmp, "Triangle2.bmp", new[]
+        {
+            new Point(0, 0),
+            new Point(a / 2, (int)(a * MathF.Sqrt(3) / 2)),
+            new Point(a, 0)
+        }.Select(Shift(new Size(100, 100))));
+    }
+    
+    [Test]
+    public void Square1()
+    {
+        const int a = 500;
+        Draw(_bmp, "Square1.bmp", new[]
+        {
+            new Point(0, 0),
+            new Point(0, a),
+            new Point(a, a),
+            new Point(a, 0),
+        }.Select(Shift(new Size(100, 100))));
+    }
+    
+    [Test]
+    public void Polygon1()
+    {
+        Draw(_bmp, "Polygon1.bmp", new[]
         {
             new Point(0, 0),
             new Point(0, 2),
@@ -48,20 +75,38 @@ public class ImagesTests
             new Point(7, 2),
             new Point(5, -2),
         }
-            .Select(x => Multiply(x, 100))
-            .Select(x =>  x + new Size(252, 252))
-            .ToArray());
+            .Select(Multiply(100))
+            .Select(Shift(new Size(250, 250))));
     }
-
-    private static Point Multiply(Point point, int multiplier)
+    
+    [Test]
+    public void Polygon2()
     {
-        return new Point(point.X * multiplier, point.Y * multiplier);
+        Draw(_bmp, "Polygon2.bmp", new[]
+            {
+                new Point(0, 0),
+                new Point(2, 4),
+                new Point(6, 4),
+                new Point(8, 0)
+            }
+            .Select(Multiply(100))
+            .Select(Shift(new Size(100, 100))));
     }
 
-    public void Draw(Bitmap bitmap, string filename, Point[] polygon)
+    private static Func<Point, Point> Multiply(int multiplier)
+    {
+        return point => new Point(point.X * multiplier, point.Y * multiplier);
+    }
+
+    private static Func<Point, Point> Shift(Size offset)
+    {
+        return point => point + offset;
+    }
+
+    public void Draw(Bitmap bitmap, string filename, IEnumerable<Point> polygon)
     {
         var drawer = new Drawer();
-        drawer.Draw(bitmap, polygon);
+        drawer.Draw(bitmap, polygon.ToArray());
         var directory = Path.Join(Directory.GetCurrentDirectory(), "Images");
         if (!Directory.Exists(directory))
         {
@@ -74,7 +119,7 @@ public class ImagesTests
 public class LineTests
 {
     [TestCaseSource(nameof(CrossTestCases))]
-    public void Cross_ShouldReturnPoint(Line a, Line b, Vector2? c)
+    public void Cross_ShouldReturnPoint(Line a, Line b, VectorRat? c)
     {
         var result = a.Cross(b);
 
@@ -82,7 +127,7 @@ public class LineTests
     }
 
     [TestCaseSource(nameof(CrossSegmentTestCases))]
-    public void CrossSegment_ShouldReturnPoint(Line a, Segment b, Vector2? c)
+    public void CrossSegment_ShouldReturnPoint(Line a, Segment b, VectorRat? c)
     {
         var result = a.Cross(b);
 
@@ -92,21 +137,21 @@ public class LineTests
     public static IEnumerable<TestCaseData> CrossTestCases()
     {
         yield return new TestCaseData(
-            new Line(new Vector2(0, 0), new Vector2(1, 1)),
-            new Line(new Vector2(0, 0), new Vector2(1, -1)),
-            new Vector2(0, 0));
+            new Line(new VectorRat(0, 0), new VectorRat(1, 1)),
+            new Line(new VectorRat(0, 0), new VectorRat(1, -1)),
+            new VectorRat(0, 0));
         
         yield return new TestCaseData(
-            new Line(new Vector2(0, 0), new Vector2(1, 1)),
-            new Line(new Vector2(1, 1), new Vector2(2, 2)),
+            new Line(new VectorRat(0, 0), new VectorRat(1, 1)),
+            new Line(new VectorRat(1, 1), new VectorRat(2, 2)),
             null);
     }
 
     public static IEnumerable<TestCaseData> CrossSegmentTestCases()
     {
         yield return new TestCaseData(
-            new Line(new Vector2(300, 250), new Vector2(-200, 850)),
-            new Segment(new Vector2(0, 200), new Vector2(200, 400)),
-            new Vector2(186.36363f, 386.36365f));
+            new Line(new VectorRat(300, 250), new VectorRat(-200, 850)),
+            new Segment(new VectorRat(0, 200), new VectorRat(200, 400)),
+            new VectorRat(Rational.Approximate(186.36363f), Rational.Approximate(386.36365f)));
     }
 }
