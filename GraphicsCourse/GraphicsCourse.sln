@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsCourse.Task2", "Gra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsCourse.Task2.UnitTests", "GraphicsCourse.Task2.UnitTests\GraphicsCourse.Task2.UnitTests.csproj", "{C0420CFB-0227-4555-9F83-12487D2C12D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsCourse.Task3", "GraphicsCourse.Task3\GraphicsCourse.Task3.csproj", "{C5035132-6A05-4144-9554-C79E13F98EFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsCourse.Task3.UnitTests", "GraphicsCourse.Task3.UnitTests\GraphicsCourse.Task3.UnitTests.csproj", "{F9FD3A54-A2AA-4AE0-A648-4EF003499887}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{C0420CFB-0227-4555-9F83-12487D2C12D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0420CFB-0227-4555-9F83-12487D2C12D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0420CFB-0227-4555-9F83-12487D2C12D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5035132-6A05-4144-9554-C79E13F98EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5035132-6A05-4144-9554-C79E13F98EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5035132-6A05-4144-9554-C79E13F98EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5035132-6A05-4144-9554-C79E13F98EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9FD3A54-A2AA-4AE0-A648-4EF003499887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9FD3A54-A2AA-4AE0-A648-4EF003499887}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9FD3A54-A2AA-4AE0-A648-4EF003499887}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9FD3A54-A2AA-4AE0-A648-4EF003499887}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
