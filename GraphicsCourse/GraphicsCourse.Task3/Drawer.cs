@@ -10,6 +10,8 @@ public class Drawer
     {
         var best = Solve(polygon).OrderByDescending(x => x.Value).First();
         using var g = Graphics.FromImage(bmp);
+        g.TranslateTransform(bmp.Width, bmp.Height);
+        g.RotateTransform(180);
         g.DrawPolygon(Pens.Black, polygon);
         Draw(g, best);
     }
