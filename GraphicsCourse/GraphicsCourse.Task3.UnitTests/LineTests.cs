@@ -80,6 +80,32 @@ public class ImagesTests
     }
     
     [Test]
+    public void Triangle3()
+    {
+        Draw(_bmp, "Triangle3.bmp", new[]
+            {
+                new Point(0, 0),
+                new Point(5, 0),
+                new Point(8, 2)
+            }
+            .Select(Multiply(50))
+            .Select(Shift(new Size(250, 250))));
+    }
+
+    [Test]
+    public void Triangle4()
+    {
+        Draw(_bmp, "Triangle4.bmp", new[]
+            {
+                new Point(0, 0),
+                new Point(5, 0),
+                new Point(4, 5)
+            }
+            .Select(Multiply(50))
+            .Select(Shift(new Size(250, 250))));
+    }
+    
+    [Test]
     public void Polygon2()
     {
         Draw(_bmp, "Polygon2.bmp", new[]

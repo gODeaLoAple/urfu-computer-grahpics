@@ -63,8 +63,5 @@ public readonly struct Line
         return (float)(Math.Abs((double)k2) / Math.Sqrt((double)k1));
     }
 
-    public VectorRat Direction()
-    {
-        return _b - _a;
-    }
+    public VectorRat Direction() => _b - _a;
 }
