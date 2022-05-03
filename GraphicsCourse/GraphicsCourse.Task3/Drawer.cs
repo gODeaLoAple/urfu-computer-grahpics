@@ -1,5 +1,4 @@
 using System.Drawing;
-using System.Numerics;
 using Rationals;
 
 namespace GraphicsCourse.Task3;
@@ -10,57 +9,46 @@ public class Drawer
     public void Draw(Bitmap bmp, Point[] points)
     {
         var polygon = new Polygon(points.Select(x => x.ToVectorRat()).ToArray());
-        var solution = Solve(polygon).Where(x => IsInPolygon(points, x.Center)).OrderBy(x => x.Value);
+        var solution = Solve(polygon).OrderBy(x => x.GetValue(points));
         var best = DoShowAll ? solution : solution.Take(1);
         using var g = Graphics.FromImage(bmp);
         g.DrawPolygon(Pens.Black, points);
         foreach (var r in best)
         {
-            Draw(g, r);
+            Draw(g, r, points);
         }
         bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
     }
 
-    public static bool IsInPolygon4(Point[] poly, Point point)
+    public static bool IsInPolygon(IReadOnlyList<Point> polygon, Point point)
     {
-        var coef = poly.Skip(1).Select((p, i) => 
-                (point.Y - poly[i].Y)*(p.X - poly[i].X) 
-                - (point.X - poly[i].X) * (p.Y - poly[i].Y))
-            .ToList();
-
-        if (coef.Any(p => p == 0))
-            return true;
-
-        for (int i = 1; i < coef.Count(); i++)
+        var count = polygon.Count;
+        var sign = 0;
+        for (var i = 0; i < count; i++)
         {
-            if (coef[i] * coef[i - 1] < 0)
+            var j = (i + 1) % count;
+            var a = new Point(point.X - polygon[i].X, point.Y - polygon[i].Y);
+            var b = new Point(point.X - polygon[j].X, point.Y - polygon[j].Y);
+            var sin = a.X * b.Y - b.X * a.Y;  
+            var cos = a.X * b.X + a.Y * b.Y;
+            var angle = Math.Atan2(sin, cos) * (180 / Math.PI);
+            var currentSign = angle > 0 ? 1 : -1;
+            if (sign == 0)
+            {
+                sign = currentSign;
+            }
+            else if (sign != currentSign)
+            {
                 return false;
+            }
         }
         return true;
     }
     
-    public static bool IsInPolygon(Point[] polygon, Point testPoint)
-    {
-        bool result = false;
-        int j = polygon.Count() - 1;
-        for (int i = 0; i < polygon.Count(); i++)
-        {
-            if (polygon[i].Y < testPoint.Y && polygon[j].Y >= testPoint.Y || polygon[j].Y < testPoint.Y && polygon[i].Y >= testPoint.Y)
-            {
-                if (polygon[i].X + (testPoint.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < testPoint.X)
-                {
-                    result = !result;
-                }
-            }
-            j = i;
-        }
-        return result;
-    }
-    
-    private static void Draw(Graphics g, Result result)
+    private static void Draw(Graphics g, Result result, Point[] points)
     {
         var center = result.Center;
-        var r = result.Radius;
+        var r = result.GetRadius(points);
         g.DrawArc(Pens.Green, center.X - r, center.Y - r, 2 * r, 2 * r, 0, 360);
         g.FillEllipse(Brushes.Blue, center.X - 1, center.Y - 1, 2, 2);
     }
@@ -138,7 +126,9 @@ public class Drawer
 
     private readonly record struct Result(Point Center, Rational A, Rational B)
     {
-        public float Radius => (float)((A + B) / 2);
-        public float Value => (float)((B - A) / 2);
+        public float GetRadius(IReadOnlyList<Point> polygon) =>
+            (float)(IsInPolygon(polygon, Center) ? (A + B)/ 2 : (A - B) / 2);
+        public float GetValue(IReadOnlyList<Point> polygon) =>
+            (float)(IsInPolygon(polygon, Center) ? (B - A) / 2 : (A + B) / 2);
     }
 }

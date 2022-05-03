@@ -17,9 +17,6 @@ internal class Program
 
         var drawer = new Drawer();
         drawer.Draw(bmp, polygon);
-        
         bmp.Save("result.bmp");
-        
-        
     }
 }

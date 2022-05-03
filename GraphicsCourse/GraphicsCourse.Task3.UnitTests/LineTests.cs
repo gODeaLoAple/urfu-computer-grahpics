@@ -34,8 +34,8 @@ public class ImagesTests
         {
             new Point(0, 0),
             new Point(500, 0),
-            new Point(0, 500)
-        }.Select(Shift(new Size(100, 100))));
+            new Point(-200, 300)
+        }.Select(Shift(new Size(300, 500))));
     }
     
     [Test]
@@ -61,6 +61,15 @@ public class ImagesTests
             new Point(a, a),
             new Point(a, 0),
         }.Select(Shift(new Size(100, 100))));
+    }
+    
+    public void Polygon4()
+    {
+        Draw(_bmp, "Polygon4.bmp", new[]
+            {
+                new Point(),
+            }
+            .Select(Multiply(50)));
     }
     
     [Test]
