@@ -25,9 +25,9 @@ internal class Program
         
         yield return ("b.bmp",
             new DrawerParams(
-                new Segment<float>(0, 2), 
-                new Segment<float>(0, 2),
-                (x, y) => MathF.Cos(x) * MathF.Sin(x)));
+                new Segment<float>(-3, 3), 
+                new Segment<float>(-3, 3),
+                (x, y) => MathF.Cos(x * y)));
         
         yield return ("c.bmp",
             new DrawerParams(
@@ -61,8 +61,8 @@ internal class Program
         
         yield return ("g.bmp",
             new DrawerParams(
-                new Segment<float>(0, 10), 
-                new Segment<float>(0, 10),
-                (x, y) => MathF.Sin(MathF.Sqrt(x * x + y * y))));
+                new Segment<float>(-10, 10), 
+                new Segment<float>(-10, 10),
+                (x, y) => x * x - y * y));
     }
 }

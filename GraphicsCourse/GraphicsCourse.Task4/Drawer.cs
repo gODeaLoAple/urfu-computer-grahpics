@@ -25,7 +25,7 @@ public class Projector : IScreenProjector
 }
 public class CoordinateStretcher
 {
-    private readonly IScreenProjector _projector;
+    private readonly Size _size;
     private readonly float _sX;
     private readonly float _sY;
     private readonly float _kX;
@@ -33,21 +33,25 @@ public class CoordinateStretcher
 
     public CoordinateStretcher(Size size, Segment<float> rangeX, Segment<float> rangeY)
     {
+        _size = size;
         _sX = rangeX.Left;
         _sY = rangeY.Left;
         (_kX, _kY) = (size.Width / rangeX.Length(), size.Height / rangeY.Length());
     }
 
     public Point Stretch(PointF coord) 
-        => new(StretchSingle(coord.X, _sX, _kX), StretchSingle(coord.Y, _sY, _kY));
+        => new(
+            ToBound(StretchSingle(coord.X, _sX, _kX), 0, _size.Width - 1),
+            ToBound(StretchSingle(coord.Y, _sY, _kY), 0, _size.Height - 1));
 
-    private static int StretchSingle(float coord, float offset, float resize) => (int)(MathF.Max(coord - offset, 0) * resize);
+    private static int StretchSingle(float coord, float offset, float resize) => (int)((coord - offset) * resize);
+
+    private static int ToBound(int value, int min, int max) => value < min ? min : value > max ? max : value;
 }
 
 public class Drawer
 {
     private int Nx => _bitmap.Width;
-    private int Ny => _bitmap.Height;
     private readonly Bitmap _bitmap;
     private readonly float[] _top;
     private readonly float[] _bottom;
@@ -62,46 +66,73 @@ public class Drawer
     public Drawer(Bitmap bitmap, DrawerParams parameters)
     {
         _bitmap = bitmap;
-        _top = new float[Nx];
-        _bottom = new float[Nx];
+        _top = new float[_bitmap.Width];
+        _bottom = new float[_bitmap.Width];
         (_rangeX, _rangeY, _f) = parameters;
-        _stepsX = 100;
-        _stepsY = 100;
-        InitHorizon();
+        _stepsX = 50;
+        _stepsY = 2 * _bitmap.Width;
         _projector = new IsometricProjector();
         _stretcher = CreateStretcher();
     }
 
     public void Draw()
     {
+        InitHorizon();
         using var graphics = Graphics.FromImage(_bitmap);
         var (stepX, stepY) = CalculateSteps();
         for (var x = _rangeX.Right; x > _rangeX.Left; x -= stepX)
         {
-            var previous = Stretch(x, _rangeY.Right, _f(x, _rangeY.Right));
             for (var y = _rangeY.Right; y > _rangeY.Left; y -= stepY)
             {
                 var current = Stretch(x, y, _f(x, y));
                 var (xx, yy) = (current.X, current.Y);
 
-                if (yy < _bottom[xx] || yy > _top[xx])
+                if (IsVisible(current))
                 {
-                    graphics.DrawLine(Pens.Black, current.X, current.Y, previous.X, previous.Y);
+                    var color = yy > _bottom[xx] ? Color.Green : Color.Blue;
+                    _bitmap.SetPixel(xx, yy, color);
+                    UpdateHorizon(xx, yy);
                 }
+            }
+        }
+        
+        InitHorizon();
+        for (var x = _rangeX.Right; x > _rangeX.Left; x -= stepX)
+        {
+            for (var y = _rangeY.Right; y > _rangeY.Left; y -= stepY)
+            {
+                var current = Stretch(y, x, _f(y, x));
+                var (xx, yy) = (current.X, current.Y);
 
-                _bottom[xx] = Math.Min(_bottom[xx], yy);
-                _top[xx] = Math.Max(_top[xx], yy);
-                previous = current;
+                if (IsVisible(current))
+                {
+                    var color = yy > _bottom[xx] ? Color.Green : Color.Blue;
+                    _bitmap.SetPixel(xx, yy, color);
+                    UpdateHorizon(xx, yy);
+                }
             }
         }
     }
+    
+
+    private bool IsVisible(int xx, int yy) => yy > _bottom[xx] || yy < _top[xx];
+    
+    private bool IsVisible(Point point) => IsVisible(point.X, point.Y);
+
+    private void UpdateHorizon(int x, int y)
+    {
+        _bottom[x] = Math.Max(_bottom[x], y);
+        _top[x] = Math.Min(_top[x], y);
+    }
+
+    private void UpdateHorizon(Point point) => UpdateHorizon(point.X, point.Y);
 
     private void InitHorizon()
     {
         for (var i = 0; i < Nx; i++)
         {
-            _top[i] = 0;
-            _bottom[i] = _bitmap.Height;
+            _top[i] = _bitmap.Height;
+            _bottom[i] = 0;
         }
     }
 
